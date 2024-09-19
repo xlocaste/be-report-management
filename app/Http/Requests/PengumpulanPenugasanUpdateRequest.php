@@ -25,8 +25,7 @@ class PengumpulanPenugasanUpdateRequest extends FormRequest
         return [
             'penugasan_id'=>'required',
             'link_google_drive'=>'required',
-            'user_id'=>'required',
-            'catatan'=>'required',
+            'catatan'=>'nullable',
             'status' => ['required', 'string', 'in:' . implode(',', array_column(Status::cases(), 'value'))],
         ];
     }

@@ -28,13 +28,13 @@ class PermissionDemoSeeder extends Seeder
         Permission::create(['name' => 'create pengumpulan penugasan']);
         Permission::create(['name' => 'edit pengumpulan penugasan']);
 
-        $superViserRole = Role::create(['name' => 'superViser']);
-        $superViserRole->givePermissionTo('view penugasan');
-        $superViserRole->givePermissionTo('create penugasan');
-        $superViserRole->givePermissionTo('edit penugasan');
-        $superViserRole->givePermissionTo('delete penugasan');
-        $superViserRole->givePermissionTo('view pengumpulan penugasan');
-        $superViserRole->givePermissionTo('edit pengumpulan penugasan');
+        $superVisorRole = Role::create(['name' => 'superVisor']);
+        $superVisorRole->givePermissionTo('view penugasan');
+        $superVisorRole->givePermissionTo('create penugasan');
+        $superVisorRole->givePermissionTo('edit penugasan');
+        $superVisorRole->givePermissionTo('delete penugasan');
+        $superVisorRole->givePermissionTo('view pengumpulan penugasan');
+        $superVisorRole->givePermissionTo('edit pengumpulan penugasan');
 
         $karyawanRole = Role::create(['name' => 'karyawan']);
         $karyawanRole->givePermissionTo('view pengumpulan penugasan');
@@ -46,7 +46,7 @@ class PermissionDemoSeeder extends Seeder
             'email' => 'irfandi@gmail.com',
             'password' => bcrypt('irfandi123')
         ]);
-        $user->assignRole($superViserRole);
+        $user->assignRole($superVisorRole);
 
         $user = User::factory()->create([
             'name' => 'hamri',

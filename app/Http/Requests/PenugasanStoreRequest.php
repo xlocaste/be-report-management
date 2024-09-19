@@ -11,7 +11,7 @@ class PenugasanStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->roles[0]->name === 'superViser';
+        return $this->user()->roles[0]->name === 'superVisor';
     }
 
     /**

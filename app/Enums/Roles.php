@@ -4,6 +4,6 @@ namespace App\Enums;
 
 enum Roles: string
 {
-    case SUPERVISER = 'superViser';
+    case SUPERVISER = 'superVisor';
     case KARYAWAN = 'karyawan';
 }

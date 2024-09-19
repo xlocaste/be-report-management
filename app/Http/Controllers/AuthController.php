@@ -20,11 +20,11 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'role' => $request->role,
             'password' => Hash::make($request->password),
         ]);
 
-        // Assign default role to the user
-        $role = Role::where('name', 'karyawan')->first();
+        $role = Role::where('name', $request['role'])->first();
         $user->assignRole($role);
 
         return response()->json(['message' => 'User registered successfully']);

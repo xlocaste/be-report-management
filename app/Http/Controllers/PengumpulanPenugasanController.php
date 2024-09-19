@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Status;
 use App\Http\Requests\PengumpulanPenugasanStoreRequest;
 use App\Http\Requests\PengumpulanPenugasanUpdateRequest;
 use App\Http\Resources\PengumpulanPenugasanResource;
@@ -18,12 +19,22 @@ class PengumpulanPenugasanController extends Controller
 
     public function store(PengumpulanPenugasanStoreRequest $request)
     {
+        $existingPenugasan = PengumpulanPenugasan::where('user_id', $request->user_id)
+                                ->where('penugasan_id', $request->penugasan_id)
+                                ->first();
+
+        if ($existingPenugasan) {
+            return response()->json([
+                'message' => 'User sudah membuat pengumpulan untuk penugasan ini. Duplikasi tidak diperbolehkan.'
+            ], 400);
+        }
+
         $pengumpulanPenugasan = PengumpulanPenugasan::create([
-            'penugasan_id'=>$request->penugasan_id,
-            'link_google_drive'=>$request->link_google_drive,
-            'user_id'=>$request->user_id,
-            'catatan'=>$request->catatan,
-            'status'=>$request->status,
+            'penugasan_id' => $request->penugasan_id,
+            'link_google_drive' => $request->link_google_drive,
+            'user_id' => $request->user_id,
+            'catatan' => $request->catatan,
+            'status' => Status::BARU->value,
         ]);
 
         return (new PengumpulanPenugasanResource($pengumpulanPenugasan))->additional([
@@ -36,7 +47,6 @@ class PengumpulanPenugasanController extends Controller
         $pengumpulanPenugasan->update([
             'penugasan_id'=>$request->penugasan_id,
             'link_google_drive'=>$request->link_google_drive,
-            'user_id'=>$request->user_id,
             'catatan'=>$request->catatan,
             'status'=>$request->status,
         ]);
